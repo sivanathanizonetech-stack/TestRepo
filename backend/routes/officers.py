@@ -1,11 +1,10 @@
-from typing import List
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from typing import List
 
-from app.db.session import get_db
-from app.models import Officer
-from app.schemas import OfficerCreate, OfficerResponse
+from database import get_db
+from models import Officer
+from schemas import OfficerCreate, OfficerResponse
 
 router = APIRouter(prefix="/api/officers", tags=["Officers"])
 

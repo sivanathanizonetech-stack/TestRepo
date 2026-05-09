@@ -8,7 +8,7 @@ from app.schemas.complaints import (
     DashboardStats,
 )
 from app.schemas.departments import DepartmentCreate, DepartmentResponse
-from app.schemas.feedback import FeedbackCreate, FeedbackResponse
+from app.schemas.feedback import FeedbackResponse
 from app.schemas.officers import OfficerCreate, OfficerResponse
 
 __all__ = [
@@ -21,10 +21,10 @@ __all__ = [
     "DashboardStats",
     "DepartmentCreate",
     "DepartmentResponse",
-    "FeedbackCreate",
     "FeedbackResponse",
     "LoginRequest",
     "OfficerCreate",
     "OfficerResponse",
     "TokenResponse",
 ]
+

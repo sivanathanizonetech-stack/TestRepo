@@ -1,13 +1,33 @@
-from typing import List
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from typing import List
+from pydantic import BaseModel
+from typing import Optional
+from datetime import datetime
 
-from app.db.session import get_db
-from app.models import Feedback
-from app.schemas import FeedbackCreate, FeedbackResponse
+from database import get_db
+from models import Feedback
 
 router = APIRouter(prefix="/api/feedback", tags=["Feedback"])
+
+
+class FeedbackCreate(BaseModel):
+    complaint_token: str
+    citizen_name: Optional[str] = None
+    rating: int
+    comment: Optional[str] = None
+
+
+class FeedbackResponse(BaseModel):
+    id: int
+    complaint_token: str
+    citizen_name: Optional[str] = None
+    rating: int
+    comment: Optional[str] = None
+    created_at: Optional[datetime] = None
+
+    class Config:
+        orm_mode = True
 
 
 @router.post("/", response_model=FeedbackResponse)

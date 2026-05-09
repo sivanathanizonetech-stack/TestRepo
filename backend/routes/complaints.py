@@ -1,19 +1,13 @@
 import random
 import string
-from typing import List, Optional
-
 from fastapi import APIRouter, Depends, HTTPException, Query
-from app.services.complaint_extensions import sync_complaint_extensions
 from sqlalchemy.orm import Session
+from typing import Optional, List
 
-from app.db.session import get_db
-from app.models import Complaint, Department, Officer
-from app.schemas import (
-    ComplaintCreate,
-    ComplaintResponse,
-    ComplaintTrackResponse,
-    ComplaintUpdate,
-)
+from app.services.complaint_extensions import sync_complaint_extensions
+from database import get_db
+from models import Complaint
+from schemas import ComplaintCreate, ComplaintResponse, ComplaintUpdate, ComplaintTrackResponse
 
 router = APIRouter(prefix="/api/complaints", tags=["Complaints"])
 
@@ -88,6 +82,7 @@ def track_complaint(token: str, db: Session = Depends(get_db)):
 
 @router.get("/stats")
 def get_complaint_stats(db: Session = Depends(get_db)):
+    from models import Department, Officer
     total = db.query(Complaint).count()
     pending = db.query(Complaint).filter(Complaint.status == "Pending").count()
     in_progress = db.query(Complaint).filter(Complaint.status == "In Progress").count()
