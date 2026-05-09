@@ -1,11 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.db.bootstrap import bootstrap_legacy_schema
+from app.db.bootstrap import bootstrap_database
 from routes import announcements, auth, complaints, departments, feedback, officers
-
-
-bootstrap_legacy_schema()
 
 app = FastAPI(title="TN Grievance Redressal Portal API")
 
@@ -23,6 +20,11 @@ app.include_router(departments.router)
 app.include_router(officers.router)
 app.include_router(feedback.router)
 app.include_router(announcements.router)
+
+
+@app.on_event("startup")
+def on_startup() -> None:
+    bootstrap_database()
 
 
 @app.get("/")

@@ -1,8 +1,9 @@
-from sqlalchemy.orm import Session
-from passlib.context import CryptContext
-from database import SessionLocal, engine
-from models import AdminUser, Base
 import sys
+
+from passlib.context import CryptContext
+
+from app.db.session import SessionLocal, engine
+from app.models import AdminUser, Base
 
 # Hash setup (matching routes/auth.py)
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

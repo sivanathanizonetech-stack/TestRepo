@@ -1,9 +1,11 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
-from database import get_db
-from models import Announcement
-from schemas import AnnouncementCreate, AnnouncementResponse
+
+from app.db.session import get_db
+from app.models import Announcement
+from app.schemas import AnnouncementCreate, AnnouncementResponse
 from routes.auth import get_current_user
 
 router = APIRouter(prefix="/api/announcements", tags=["announcements"])
